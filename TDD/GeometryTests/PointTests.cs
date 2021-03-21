@@ -1,4 +1,6 @@
-﻿using FluentAssertions;
+﻿using System;
+using System.Collections.Generic;
+using FluentAssertions;
 using Geometry;
 using Xunit;
 
@@ -33,14 +35,15 @@ namespace GeometryTests
             point.Y.Should().Be(1);
         }
 
-        [Fact]
-        public void Distance_is_calculated_correctly()
+        [Theory]
+        [MemberData(nameof(PointData))]
+        public void Distance_is_calculated_correctly(double x, double y, double expectedDistance)
         {
-            var point = new Point(3, 4);
+            var point = new Point(x, y);
 
             var distance = point.Distance();
 
-            distance.Should().Be(5);
+            distance.Should().Be(expectedDistance);
         }
 
         [Fact]
@@ -107,5 +110,12 @@ namespace GeometryTests
             reflection.X.Should().Be(3);
             reflection.Y.Should().Be(-6);
         }
+
+        public static IEnumerable<object[]> PointData = new List<object[]>
+        {
+            new object[] { 3, 4, 5 },
+            new object[] { 1, 1, Math.Sqrt(2) },
+            new object[] { 0, 0, 0 },
+        };
     }
 }
