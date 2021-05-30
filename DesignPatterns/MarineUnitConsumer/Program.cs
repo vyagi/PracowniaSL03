@@ -9,9 +9,17 @@ namespace MarineUnitConsumer
         {
             var newUnit = MarineUnitBuilder
                 .Initialize()
-                .WithName("Cosmos");
+                .WithName("Luna")
+                .WithIntendedUse(new UnitIntendedUse(TypeOfUse.MarineCommercial, "a", "b"))
+                .WithDimensions(new Dimensions(10, 10, 10))
+                .WithMechanicalInstallation(new MechanicalInstallation())
+                .WithVersatileInstallation(new VersatileInstallation())
+                .WithElectricalInstallation(new ElectricalInstallation())
+                .WithNoMoreElectricalInstallations()
+                .WithBrandAndModel("James", "Bond")
+                .Build();
 
-            var unit = new MarineUnit();
+            Console.WriteLine(newUnit.ElectricalInstallation.Length);
         }
     }
 }
